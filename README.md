@@ -13,4 +13,4 @@ This isn't a container solution. I don't know shit about containers, although th
 Dead simple. Clone the repository, change to its directory, and run the included script under sudo. Then follow the prompts.
 
 # Contact
-Feel free to contact me via the details on my bio or post an issue.
+Feel free to contact us via the details on our bio or post an issue.
