@@ -1,4 +1,3 @@
-
 <img src="https://pasteboard.co/images/HqcBMsm.png/download" width="60%" height="60%">
 
 # boinc-cloud-deploy
