@@ -63,7 +63,7 @@ fi
 
 # Attach to BAM with the supplied credentials
 echo "Attaching BOINC to BAM..."
-boinccmd --acct_mgr attach https://bam.boincstats.com $username $passwors
+boinccmd --acct_mgr attach https://bam.boincstats.com $username $password
 
 # Finished!
 echo "Finished!\n"
