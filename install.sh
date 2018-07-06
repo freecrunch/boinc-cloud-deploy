@@ -11,8 +11,10 @@ echo "boinc-cloud-deploy v0.0.1"
 echo "https://freecrunch.github.io/"
 echo "--"
 
-echo "Please supply some credentials to use. These credentials must match the credentials you used to sign up for BAM."
-echo "Additionally the email address and password you supply will also be used when signing up for projects."
+echo "Please supply some credentials to use. These credentials must match the"
+echo "credentials you used to sign up for BAM."
+echo "Additionally the email address and password you supply will also be used"
+echo "when signing up for projects and for the BOINC RPC API.."
 echo ""
 read -p "Enter your username: " username
 echo -n "Enter your password: "
@@ -40,17 +42,25 @@ done
 echo "Beginning deployment..."
 
 # Upgrade system before deploying everything else
-apt-get update
-apt-get upgrade
+apt-get -y update
+apt-get -y upgrade
 
 # Install boinc-client
 echo "Installing the BOINC client..."
-apt-get install boinc-client
+apt-get -y install boinc-client
 
-# Install boinctui (if required)
+# Install boinctui-extended (if required)
 if [ $install_boinctui == "y" ]; then
-    echo "Installing boinctui terminal GUI..."
-    apt-get install boinctui
+    echo "Installing boinctui-extended terminal GUI..."
+    #apt-get install boinctui
+    echo "Downloading...\n"
+    git clone https://github.com/mpentler/boinctui-extended.git
+    cd boinctui-extended
+    echo "Compiling..."
+    autoconf
+    ./configure --without-gnutls
+    make
+    make install
 fi
 
 # Setup GUI RPC access (if required) with the supplied info
