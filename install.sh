@@ -54,6 +54,7 @@ if [ $install_boinctui == "y" ]; then
     echo "Installing boinctui-extended terminal GUI..."
     #apt-get install boinctui
     echo "Downloading...\n"
+    apt-get -y install make autoconf g++ libssl-dev libexpat1-dev libncursesw5-dev
     git clone https://github.com/mpentler/boinctui-extended.git
     cd boinctui-extended
     echo "Compiling..."
