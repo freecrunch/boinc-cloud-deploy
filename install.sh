@@ -1,7 +1,7 @@
 #!/bin/bash
 # boinc-cloud-deploy v0.0.1
 # Part of the FreeCrunch project
-## https://freecrunch.github.io/
+# https://freecrunch.github.io/
 
 # Setup and read user preferences
 install_boinctui="y"
