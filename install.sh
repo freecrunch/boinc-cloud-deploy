@@ -26,7 +26,7 @@ while true; do
     case $yn in
         [Yy]* ) install_boinctui="y"; break;;
         [Nn]* ) install_boinctui="n"; break;;
-        * ) printf "Y/N choice required";;
+        * ) printf "Y/N choice required\\n";;
     esac
 done
 
@@ -35,7 +35,7 @@ while true; do
     case $yn in
         [Yy]* ) set_rpc_pw="y"; break;;
         [Nn]* ) set_rpc_pw="n"; break;;
-        * ) printf "Y/N choice required";;
+        * ) printf "Y/N choice required\\n";;
     esac
 done
 
@@ -44,7 +44,7 @@ if [ $set_rpc_pw == "y" ]; then
 fi
 
 printf "%s\\n" "-----------------------------"
-printf "Beginning deployment..."
+printf "Beginning deployment...\\n"
 
 
 # Upgrade system before deploying everything else
