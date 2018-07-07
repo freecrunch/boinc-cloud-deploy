@@ -39,7 +39,7 @@ while true; do
     esac
 done
 
-if[ $set_rpc_pw == "y" ]; then
+if [ $set_rpc_pw == "y" ]; then
     read -p "Enter the IP address you'll be connecting from: " rpcip
 fi
 
@@ -80,17 +80,17 @@ if [ $set_rpc_pw == "y" ]; then
     echo "Remember to open inbound TCP port 31416 on your cloud instance."
     rm -rf /var/lib/boinc-client/gui_rpc_auth.cfg
     touch /var/lib/boinc-client/gui_rpc_auth.cfg
-    echo $password >> /var/lib/boinc-client/gui_rpc_auth.cfg
+    echo "$password" >> /var/lib/boinc-client/gui_rpc_auth.cfg
     rm -rf /var/lib/boinc-client/remote_hosts.cfg
     touch /var/lib/boinc-client/remote_hosts.cfg
-    echo $rpcip >> /var/lib/boinc-client/remote_hosts.cfg
+    echo "$rpcip" >> /var/lib/boinc-client/remote_hosts.cfg
     systemctl restart boinc-client.service
     sleep 1
 fi
 
 # Attach to BAM with the supplied credentials
 echo "Attaching BOINC to BAM..."
-boinccmd --acct_mgr attach https://bam.boincstats.com $username $password
+boinccmd --acct_mgr attach https://bam.boincstats.com "$username" "$password"
 
 # Finished!
 echo "Finished!\n"
