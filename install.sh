@@ -7,26 +7,26 @@
 install_boinctui="y"
 set_rpc_pw="y"
 
-echo "boinc-cloud-deploy v0.0.1"
-echo "https://freecrunch.github.io/"
-echo "--"
+printf "%s\n" "-----------------------------"
+printf "boinc-cloud-deploy v0.0.1\n"
+printf "https://freecrunch.github.io/\n"
+printf "%s\n" "-----------------------------"
+printf "Please supply some credentials to use. These credentials must match the\n"
+printf "credentials you used to sign up for BAM.\n"
+printf "Additionally the email address and password you supply will also be used\n"
+printf "when signing up for projects and for the BOINC RPC API.\n\n"
 
-echo "Please supply some credentials to use. These credentials must match the"
-echo "credentials you used to sign up for BAM."
-echo "Additionally the email address and password you supply will also be used"
-echo "when signing up for projects and for the BOINC RPC API.."
-echo ""
 read -p "Enter your username: " username
-echo -n "Enter your password: "
+printf "Enter your password: "
 read -s password
-echo
+printf "\n"
 
 while true; do
     read -p "Install boinctui terminal GUI? [y/n]: " yn
     case $yn in
         [Yy]* ) install_boinctui="y"; break;;
         [Nn]* ) install_boinctui="n"; break;;
-        * ) echo "Y/N choice required";;
+        * ) printf "Y/N choice required";;
     esac
 done
 
@@ -35,7 +35,7 @@ while true; do
     case $yn in
         [Yy]* ) set_rpc_pw="y"; break;;
         [Nn]* ) set_rpc_pw="n"; break;;
-        * ) echo "Y/N choice required";;
+        * ) printf "Y/N choice required";;
     esac
 done
 
@@ -43,8 +43,8 @@ if [ $set_rpc_pw == "y" ]; then
     read -p "Enter the IP address you'll be connecting from: " rpcip
 fi
 
-echo "\n------------------------"
-echo "Beginning deployment..."
+printf "%s\n" "-----------------------------"
+printf "Beginning deployment..."
 
 
 # Upgrade system before deploying everything else
@@ -53,20 +53,20 @@ apt-get -y upgrade
 
 # Install boinc-client
 
-echo "\n------------------------"
-echo "Installing the BOINC client...\n"
+printf "%s\n" "-----------------------------"
+printf "Installing the BOINC client...\n"
 apt-get -y install boinc-client
 
 # Install boinctui-extended (if required)
 if [ $install_boinctui == "y" ]; then
-    echo "\n------------------------"
-    echo "Installing boinctui-extended terminal GUI...\n"
+    printf "%s\n" "-----------------------------"
+    printf "Installing boinctui-extended terminal GUI...\n"
     #apt-get install boinctui
-    echo "\nDownloading...\n"
+    printf "\nDownloading...\n"
     apt-get -y install make autoconf g++ libssl-dev libexpat1-dev libncursesw5-dev
     git clone https://github.com/mpentler/boinctui-extended.git
     cd boinctui-extended
-    echo "\nCompiling...\n"
+    printf "\nCompiling...\n"
     autoconf
     ./configure --without-gnutls
     make
@@ -75,9 +75,9 @@ fi
 
 # Setup GUI RPC access (if required) with the supplied info
 if [ $set_rpc_pw == "y" ]; then
-    echo "\n------------------------"
-    echo "Setting up RPC access and restarting the BOINC service."
-    echo "Remember to open inbound TCP port 31416 on your cloud instance."
+    printf "%s\n" "-----------------------------"
+    printf "Setting up RPC access and restarting the BOINC service."
+    printf "Remember to open inbound TCP port 31416 on your cloud instance."
     rm -rf /var/lib/boinc-client/gui_rpc_auth.cfg
     touch /var/lib/boinc-client/gui_rpc_auth.cfg
     echo "$password" >> /var/lib/boinc-client/gui_rpc_auth.cfg
@@ -89,8 +89,10 @@ if [ $set_rpc_pw == "y" ]; then
 fi
 
 # Attach to BAM with the supplied credentials
-echo "Attaching BOINC to BAM..."
+printf "%s\n" "-----------------------------"
+printf "Attaching BOINC to BAM..."
 boinccmd --acct_mgr attach https://bam.boincstats.com "$username" "$password"
 
 # Finished!
-echo "Finished!\n"
+printf "%s\n" "-----------------------------"
+printf "Finished!\n"
