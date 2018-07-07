@@ -65,7 +65,7 @@ if [ $install_boinctui == "y" ]; then
     printf "\\nDownloading...\\n"
     apt-get -y install make autoconf g++ libssl-dev libexpat1-dev libncursesw5-dev
     git clone https://github.com/mpentler/boinctui-extended.git
-    cd boinctui-extended
+    cd boinctui-extended || exit
     printf "\\nCompiling...\\n"
     autoconf
     ./configure --without-gnutls
